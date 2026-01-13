@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: hands-on
+  name: hands-on
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hands-on
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      namespace: user-1
+      labels:
+        app: hands-on
+        environment: prod
+        version: 1.0.0
+    spec:
+      containers:
+      - image: nginx:latest
+        name: foobar
+        ports:
+        - containerPort: 80
+        livenessProbe: #存活探針
+          tcpSocket:
+            port: 80
+        readinessProbe: #準備就緒探針
+          httpGet:
+          port: 80
+          httpHeaders:
+          - name: kubelet-probe
+            value: "true"
+        env:
+        - name: DB_HOST
+          value: "192.168.0.1"
+        - name: DB_NAME
+          value: "foobar"
+        resources: 
+          requests:
+            memory: 10m
+            cpu: 50Mi
+          limits:
+            memory: 100m
+            cpu: 128Mi
