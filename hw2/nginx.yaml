@@ -1,0 +1,33 @@
+apiVersion: v1
+items:
+- apiVersion: v1
+  kind: ConfigMap
+  metadata:
+    creationTimestamp: "2026-02-03T08:31:45Z"
+    name: kube-root-ca.crt
+    namespace: default
+    resourceVersion: "325"
+    uid: 264b92fa-3888-4ae9-97fc-0262d0533a2a
+- apiVersion: v1
+  data:
+    nginx.conf: "server {
+                    listen 80;
+                    listen [::]:80;
+                    access_log /var/log/nginx/reverse-access.log;
+                    error_log /var/log/nginx/reverse-error.log;
+                    
+                    
+                \   location / {
+                        proxy_pass https://google.com;
+                    }
+                }"
+  kind: ConfigMap
+  metadata:
+    creationTimestamp: "2026-02-03T08:37:27Z"
+    name: tgif
+    namespace: default
+    resourceVersion: "1052"
+    uid: 5784e5d1-1714-4153-884c-e833640f4f6a
+kind: List
+metadata:
+  resourceVersion: ""

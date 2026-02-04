@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: configmap-pod
+  labels:
+    version: "1"
+    app: nginx
+spec:
+  containers:
+    - name: nginx
+      image: nginx:latest
+      volumeMounts:
+      - name: config
+        mountPath: "/etc/nginx/conf.d"
+      - name: secret
+        mountPath: "/tmp"
+  volumes:
+  - name: config
+    configMap:
+      name: tgif
+  - name: secret
+    secret:
+      secretName: nginx-secret
